@@ -1,16 +1,16 @@
-from fastapi import FastAPI
+from flask import Flask, jsonify
 import requests
 
+app = Flask(__name__)
 
-app = FastAPI()
-
-@app.get("/")
+@app.route("/")
 def read_root():
-    return {"Hello": "World}"}
+    return jsonify({"Hello": "World"})
 
-
-
-@app.get("/movies")
+@app.route("/bored")
 def bored():
     response = requests.get("https://www.boredapi.com/api/activity")
-    return response.json()
+    return jsonify(response.json())
+
+if __name__ == "__main__":
+    app.run()
